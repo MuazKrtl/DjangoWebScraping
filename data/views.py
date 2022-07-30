@@ -1,5 +1,3 @@
-import asyncio
-from pyppeteer import launch
 from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup
