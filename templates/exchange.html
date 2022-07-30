@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Altın -> TRY</h3>
+        <hr>
+
+        <form method="GET">
+            <input class="form-control mr-3" name="amount" type="text" placeholder="Ons" aria-label="Exchange">
+            <br>
+            <button type="submit" class="btn btn-danger">Dönüştür!</button>
+        </form>
+        <br>
+        {% if amount %}
+            <div class="alert alert-success">
+                {{ amount }} Gram Altın {{ liras | floatformat:2 }} Türk Lirası Ediyor.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}
