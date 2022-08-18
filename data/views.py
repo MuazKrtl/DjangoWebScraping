@@ -1,8 +1,7 @@
-import asyncio
-from pyppeteer import launch
 from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup
+import json 
 
 def getValues(link):
     USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36'
@@ -31,6 +30,22 @@ def exchange(request):
         return render(request,'exchange.html',{'liras':liras,'amount':amount})
 
     return render(request,'exchange.html')
+
+def estimate(request):
+    age = request.GET.get("age")
+    sex = request.GET.get("sex")
+    bmi = request.GET.get("bmi")
+    child = request.GET.get("child")
+    smoker = request.GET.get("smoker")
+    region = request.GET.get("region")
+
+    if age and sex and bmi and child and smoker and region:
+        data = { "values":[age,sex,bmi,child,smoker,region]}
+        data = json.dumps(data)
+        req = requests.post(url="http://127.0.0.1:5000/predict",data=data)
+        result = req.text
+        return render(request,'estimate.html',{'result':result})
+    return render(request,'estimate.html')    
 
 def index(request):
     if request.method == "POST":

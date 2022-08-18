@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Hesapla:</h3>
+        <hr>
+        <form method="GET">
+            <div class="row">
+                <div class="col">
+                    <input class="form-control" name="age" type="text" placeholder="age">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="sex" type="text" placeholder="sex">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="bmi" type="text" placeholder="bmi">
+                </div>
+                <div class="w-100"></div>
+                <p></p>
+                <div class="col">
+                    <input class="form-control" name="child" type="text" placeholder="child">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="smoker" type="text" placeholder="smoker">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="region" type="text" placeholder="region">
+                </div>
+            </div>
+            <p></p>
+            <button class="btn btn-primary btn-block" type="submit">Tahmin et!</button>    
+        </form>
+        <hr>    
+        {% if result %}
+            <div class="alert alert-success">
+                Hesaplanan tahmini tutar: {{result | floatformat:2 }}.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}

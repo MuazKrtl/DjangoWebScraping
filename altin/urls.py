@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",index,name='index'),
     path("exchange/",exchange,name='exchange'),
+    path("estimate/",estimate,name='estimate'),
 
 ]
