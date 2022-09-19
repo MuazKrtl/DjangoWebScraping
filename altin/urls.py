@@ -22,5 +22,5 @@ urlpatterns = [
     path("",index,name='index'),
     path("exchange/",exchange,name='exchange'),
     path("estimate/",estimate,name='estimate'),
-
+    path("neighbors/",neighbors,name='neighbors'),
 ]

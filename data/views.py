@@ -1,8 +1,9 @@
+import re
 from django.shortcuts import render
 import requests
 from bs4 import BeautifulSoup
 import json 
-
+import ast
 def getValues(link):
     USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36'
     LANGUAGE = 'en-US,en;q=0.5'
@@ -46,6 +47,23 @@ def estimate(request):
         result = req.text
         return render(request,'estimate.html',{'result':result})
     return render(request,'estimate.html')    
+
+def neighbors(request):
+    age = request.GET.get("age")
+    sex = request.GET.get("sex")
+    bmi = request.GET.get("bmi")
+    child = request.GET.get("child")
+    smoker = request.GET.get("smoker")
+    region = request.GET.get("region")
+
+    if age and sex and bmi and child and smoker and region:
+        data = { "values":[age,sex,bmi,child,smoker,region]}
+        data = json.dumps(data)
+        req = requests.post(url="http://127.0.0.1:5000/neighbors",data=data)
+        result = req.text
+        result = ast.literal_eval(result)
+        return render(request,'neighbors.html',{'result':result.values()})
+    return render(request,'neighbors.html')       
 
 def index(request):
     if request.method == "POST":

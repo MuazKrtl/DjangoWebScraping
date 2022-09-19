@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Komşuları Bul:</h3>
+        <hr>
+        <form method="GET">
+            <div class="row">
+                <div class="col">
+                    <input class="form-control" name="age" type="text" placeholder="age">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="sex" type="text" placeholder="sex">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="bmi" type="text" placeholder="bmi">
+                </div>
+                <div class="w-100"></div>
+                <p></p>
+                <div class="col">
+                    <input class="form-control" name="child" type="text" placeholder="child">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="smoker" type="text" placeholder="smoker">
+                </div>
+                <div class="col">
+                    <input class="form-control" name="region" type="text" placeholder="region">
+                </div>
+            </div>
+            <p></p>
+            <button class="btn btn-primary btn-block" type="submit">Komşuları Getir!</button>    
+        </form>
+        <hr>    
+        {% if result %}
+            <div class="alert alert-success">
+                <div class="row-md-2">           
+                    <div style="overflow:auto;height:500px;">
+                        <table class="table table-active table-striped table-bordered table-responsive-sm">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">age</th>
+                                    <th scope="col">sex</th>
+                                    <th scope="col">bmi</th>
+                                    <th scope="col">child</th>
+                                    <th scope="col">smoker</th>
+                                    <th scope="col">region</th>
+                                    <th scope="col">cost</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for value in result %}
+                                <tr>
+                                    <td class="align-middle text-center">{{value.0}}</td>
+                                    {% if value.1 == 1 %}
+                                        <td class="align-middle text-center">male</td>
+                                    {% else %}
+                                        <td class="align-middle text-center">female</td>
+                                    {% endif %}    
+                                    <td class="align-middle text-center">{{value.2}}</td>
+                                    <td class="align-middle text-center">{{value.3}}</td>
+                                    {% if value.4 == 1 %}
+                                        <td class="align-middle text-center">yes</td>
+                                    {% else %}
+                                        <td class="align-middle text-center">no</td>
+                                    {% endif %}   
+                                    {% if value.5 == 3 %}
+                                        <td class="align-middle text-center">southwest</td>
+                                    {% elif value.5 == 2 %}
+                                        <td class="align-middle text-center">southeast</td>
+                                    {% elif value.5 == 1 %}
+                                        <td class="align-middle text-center">northwest</td>
+                                    {% else %}
+                                        <td class="align-middle text-center">northeast</td>
+                                    {% endif %}   
+                                    <td class="align-middle text-center">{{value.6}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>    
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}
